@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            color: #008080;
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #008080;
+            color: #fff;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        nav {
+            font-family: Arial, sans-serif;
+            background-color: #008080;
+            padding: 10px 0;
+            text-align: Right;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/signout">Sign Out</a>
+    </nav>
+    <h1>Library Management System</h1>
+
+    <h2>Add Book</h2>
+    <form action="/add_book" method="POST">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required><br>
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn" required><br>
+        <input type="submit" value="Add Book">
+        <h3>{{info}}</h3>
+    </form>
+
+    <h2>Search Books</h2>
+    <form action="/search_books" method="GET">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search">
+        <input type="submit" value="Search">
+        <ul>
+            {% for book in data %}
+            <li>Title: {{ book.title }}</li>
+            <li>Author: {{ book.author }}</li>
+            <li>ISBN: {{ book.isbn }}</li>
+            {% endfor %}
+        </ul>
+    </form>
+
+    <h2>Remove Book</h2>
+    <form action="/remove_book" method="POST">
+        {% csrf_token %}
+        <label for="isbn_remove">ISBN:</label>
+        <input type="text" id="isbn_remove" name="isbn_remove" required><br>
+        <input type="submit" value="Remove Book">
+        <h3>{{infoo}}</h3>
+    </form>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOK MANAGEMENT SYSTEM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h3 {
+            margin-bottom: 20px;
+            color:#008080;
+        }
+
+        button {
+            margin-bottom: 10px;
+            color:#008080;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        form label {
+            margin-bottom: 5px;
+            display: block;
+            color:#008080;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        li {
+            margin-bottom: 5px;
+            display: block;
+            color:#008080;
+        }
+        .success-message {
+            color: green;
+            text-align: center;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h3>BOOK MANAGEMENT SYSTEM</h3>
+    <form id="signupForm" action="/signup" method="POST">
+        {% csrf_token %}
+           
+        <label for="user_name_signup">USER NAME:</label>
+        <input type="text" id="user_name_signup" name="username" required>
+        <label for="password_signup">PASSWORD:</label>
+        <input type="password" id="password_signup" name="password" required>
+        <button type="submit">SIGN UP</button>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li class="{% if message.tags %}{{ message.tags }}-message{% endif %}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form>
+    
+    <form id="signinForm" action="/signin" method="POST">
+        {% csrf_token %}
+        <label for="user_name_signin">USER NAME:</label>
+        <input type="text" id="user_name_signin" name="username" required>
+        <label for="password_signin">PASSWORD:</label>
+        <input type="password" id="password_signin" name="password" required>
+        <button type="submit">SIGN IN</button>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}-message{% endif %}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </form>
+    <button id="signinBtn">SIGN IN</button>
+    <button id="signupBtn">SIGN UP</button>
+
+
+    <script>
+        const signupBtn = document.getElementById('signupBtn');
+        const signinBtn = document.getElementById('signinBtn');
+        const signupForm = document.getElementById('signupForm');
+        const signinForm = document.getElementById('signinForm');
+        signinForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        signinBtn.style.display = 'none';
+        signupBtn.style.display = 'block';
+
+        signupBtn.addEventListener('click', function() {
+            signupForm.style.display = 'block';
+            signinForm.style.display = 'none';
+            signupBtn.style.display = 'none';
+            signinBtn.style.display = 'block';
+        });
+
+        signinBtn.addEventListener('click', function() {
+            signinForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            signinBtn.style.display = 'none';
+            signupBtn.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
